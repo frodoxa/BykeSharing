@@ -31,7 +31,7 @@ public class SplashActivity extends AppCompatActivity {
 
         if (success) {
                 //finish();
-                Intent intentBikeList = new Intent(this,BykeSharingListActivity.class);
+                Intent intentBikeList = new Intent(this,MenuLateral.class);
                 startActivity(intentBikeList);
                 finish();
             } else {

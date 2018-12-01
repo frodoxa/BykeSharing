@@ -1,8 +1,13 @@
 package com.example.giselamercade.bykesharing;
 
+
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -13,9 +18,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import com.example.giselamercade.bykesharing.bike.BikeContent;
 
 public class MenuLateral extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        BykeSharingListFragment.OnListFragmentInteractionListener,
+        AddBikeSharingFragment.OnFragmentInteractionListener,
+        MapsFragment.OnFragmentInteractionListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +52,15 @@ public class MenuLateral extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+        final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(MenuLateral.this);
+
+        View hView =  navigationView.getHeaderView(0);
+        TextView nav_user = (TextView)hView.findViewById(R.id.textViewUserMenu);
+        nav_user.setText(sharedPref.getString("username", null));
+
+
     }
 
     @Override
@@ -81,12 +101,15 @@ public class MenuLateral extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        Fragment fragment = null;
+       // Class fragmentClass = null;
 
-        } else if (id == R.id.nav_slideshow) {
-
+        if (id == R.id.new_bike) {
+            fragment = new AddBikeSharingFragment();
+        } else if (id == R.id.bike_list) {
+            fragment = new BykeSharingListFragment();
+        } else if (id == R.id.maps_option) {
+            fragment = new MapsFragment();
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
@@ -99,10 +122,39 @@ public class MenuLateral extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
 
 
-        ItemFragment fragment = new ItemFragment();
+
+       // ItemFragment fragment = new ItemFragment();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.content_frame, fragment);
         ft.commit();
         return true;
+    }
+
+    @Override
+    public void onListFragmentInteraction(BikeContent.Bike item) {
+
+    }
+
+    @Override
+    public void onFragmentInteraction(BikeContent.Bike newBike) {
+
+        Fragment fragment = null;
+        fragment = new BykeSharingListFragment();
+
+        Bundle bundle = new Bundle();
+        bundle.putString("idBike", newBike.id);
+        bundle.putString("detailBike", newBike.content);
+
+        fragment.setArguments(bundle);
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.content_frame, fragment);
+        ft.commit();
+
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }

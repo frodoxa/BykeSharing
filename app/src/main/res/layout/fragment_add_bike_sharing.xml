@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddBikeSharingFragment">
+
+    <EditText
+        android:id="@+id/TextInputLayout"
+        android:layout_width="400dp"
+        android:layout_height="69dp"
+
+        android:layout_marginTop="60dp"
+        android:hint="@string/bike_name"
+        android:inputType="text" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:layout_marginTop="120dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/TextInputEditText"
+            android:layout_width="384dp"
+            android:layout_height="67dp"
+            android:layout_marginTop="5dp"
+            android:hint="@string/bike_detail"
+            android:inputType="text" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/afegir"
+        android:layout_width="wrap_content"
+        android:layout_height="68dp"
+        android:layout_marginLeft="290dp"
+
+        android:layout_marginTop="190dp"
+        android:layout_marginRight="0dp"
+        android:text="@string/add_bike" />
+
+</FrameLayout>
